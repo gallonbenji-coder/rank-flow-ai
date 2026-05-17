@@ -4,6 +4,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
+import { WaitlistButton } from "@/components/waitlist-modal"
 
 export function HeroSection() {
   return (
@@ -53,12 +54,10 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <Button size="lg" className="h-12 px-8 text-base font-medium" asChild>
-            <Link href="/signup">
-              Essai gratuit
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Link>
-          </Button>
+          <WaitlistButton size="lg" className="h-12 px-8 text-base font-medium">
+            Essai gratuit
+            <ArrowRight className="ml-2 w-4 h-4" />
+          </WaitlistButton>
           <Button size="lg" variant="outline" className="h-12 px-8 text-base font-medium border-border/50 bg-secondary/50 hover:bg-secondary" asChild>
             <Link href="/contact">Réserver une démo</Link>
           </Button>

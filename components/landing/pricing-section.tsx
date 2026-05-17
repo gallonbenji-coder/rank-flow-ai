@@ -1,10 +1,9 @@
 "use client"
 
-import { useState } from "react"
 import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Check, Loader2 } from "lucide-react"
+import { Check } from "lucide-react"
 import type { PlanKey } from "@/lib/stripe-config"
+import { WaitlistButton } from "@/components/waitlist-modal"
 
 const plans: { name: string; price: string; description: string; features: string[]; highlighted: boolean; planId: PlanKey }[] = [
   {
@@ -57,33 +56,6 @@ const plans: { name: string; price: string; description: string; features: strin
 ]
 
 export function PricingSection() {
-  const [loadingPlan, setLoadingPlan] = useState<PlanKey | null>(null)
-
-  async function handleCheckout(planId: PlanKey) {
-    if (loadingPlan) return
-    setLoadingPlan(planId)
-
-    try {
-      const res = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planId }),
-      })
-
-      const data = await res.json()
-
-      if (!res.ok || !data.url) {
-        console.error('Erreur checkout:', data)
-        return
-      }
-
-      window.location.href = data.url
-    } catch (err) {
-      console.error('Erreur réseau:', err)
-    } finally {
-      setLoadingPlan(null)
-    }
-  }
 
   return (
     <section id="pricing" className="py-20 sm:py-32 relative">
@@ -151,23 +123,14 @@ export function PricingSection() {
                   ))}
                 </ul>
 
-                <Button
+                <WaitlistButton
+                  variant={plan.highlighted ? "default" : "outline"}
                   className={`w-full ${
                     plan.highlighted ? "" : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                   }`}
-                  variant={plan.highlighted ? "default" : "outline"}
-                  disabled={loadingPlan !== null}
-                  onClick={() => handleCheckout(plan.planId)}
                 >
-                  {loadingPlan === plan.planId ? (
-                    <>
-                      <Loader2 className="mr-2 w-4 h-4 animate-spin" />
-                      Redirection…
-                    </>
-                  ) : (
-                    "Commencer"
-                  )}
-                </Button>
+                  Commencer
+                </WaitlistButton>
               </div>
             </motion.div>
           ))}
