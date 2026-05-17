@@ -10,6 +10,7 @@ import {
   Sparkles,
   LogOut,
   ChevronUp,
+  Brain,
 } from 'lucide-react'
 import {
   Sidebar,
@@ -35,9 +36,10 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { createClient } from '@/lib/supabase/client'
 
 const navItems = [
-  { label: "Vue d'ensemble", href: '/dashboard', icon: LayoutDashboard },
-  { label: 'Facturation',    href: '/dashboard/billing',  icon: CreditCard },
-  { label: 'Paramètres',    href: '/dashboard/settings', icon: Settings },
+  { label: "Vue d'ensemble",      href: '/dashboard',                icon: LayoutDashboard },
+  { label: 'AI Visibility',       href: '/dashboard/ai-visibility',  icon: Brain },
+  { label: 'Facturation',         href: '/dashboard/billing',        icon: CreditCard },
+  { label: 'Paramètres',          href: '/dashboard/settings',       icon: Settings },
 ]
 
 function getInitials(user: User): string {
